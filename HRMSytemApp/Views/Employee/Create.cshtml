@@ -1,0 +1,254 @@
+﻿@model HRMSytemApp.Models.Employee
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employee</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.RadioButtonFor(model => model.Gender, "Male", new { htmlAttributes = new { @class = "form-control" } })Male
+            @Html.RadioButtonFor(model => model.Gender, "Female", new { htmlAttributes = new { @class = "form-control" } })Female
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaterialStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.RadioButtonFor(model => model.MaterialStatus, "Married", new { htmlAttributes = new { @class = "form-control" } })Married
+            @Html.RadioButtonFor(model => model.MaterialStatus, "Unmarried", new { htmlAttributes = new { @class = "form-control" } })Unmarried
+            @Html.ValidationMessageFor(model => model.MaterialStatus, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control datepicker", @value = DateTime.Now, @readonly = "true" } })
+            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger", @Id = "lblError" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PhoneNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Mail, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.CompanyId, new SelectList(ViewBag.Companies, "Id", "CompanyName"), "---Select a company---", new { htmlAttributes = new { @class = "form-control" } })
+
+            @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.DepartmentId, new SelectList(""), "Please select a Department", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.DesignationId, new SelectList(""), "Please select a Designation", new { style = "width:250px", @class = "dropdown1" })
+            @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.JoiningDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.JoiningDate, new { htmlAttributes = new { @class = "form-control datepicker", @readonly = "true" } })
+            @Html.ValidationMessageFor(model => model.JoiningDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            @Html.RadioButtonFor(model => model.Status, "Active", new { htmlAttributes = new { @class = "form-control" } })Active
+            @Html.RadioButtonFor(model => model.Status, "Inactive", new { htmlAttributes = new { @class = "form-control" } })Inactive
+            @Html.ValidationMessageFor(model => model.NID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <span>@ViewBag.Message</span>
+        </div>
+    </div>
+</div>
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script>
+        function ValidateDOB(dateString) {
+            var lblError = $("#lblError");
+            var parts = dateString.split("/");
+            var dtDOB = new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
+            var dtCurrent = new Date();
+            lblError.html("Eligibility 18 years - 30years.")
+            if (dtCurrent.getFullYear() - dtDOB.getFullYear() < 18 || dtCurrent.getFullYear() - dtDOB.getFullYear() > 31) {
+                return false;
+            }
+          
+            if (dtCurrent.getFullYear() - dtDOB.getFullYear() == 18 || dtCurrent.getFullYear() - dtDOB.getFullYear() == 30 ) {
+
+                //CD: 11/06/2018 and DB: 15/07/2000. Will turned 18 on 15/07/2018.
+                if (dtCurrent.getMonth() < dtDOB.getMonth()) {
+                    return false;
+                }
+                if (dtCurrent.getMonth() == dtDOB.getMonth()) {
+                    //CD: 11/06/2018 and DB: 15/06/2000. Will turned 18 on 15/06/2018.
+                    if (dtCurrent.getDate() < dtDOB.getDate()) {
+                        return false;
+                    }
+                }
+            }
+            lblError.html("");
+            return true;
+        }
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1980:2030",
+                onSelect: function (dateString, DOB) { ValidateDOB(dateString) }
+            });
+           
+            $("#CompanyId").change(function () {
+                $("#DepartmentId").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDepartment", "Department")', // we are calling json method
+                    dataType: 'json',
+                    data: { id: $("#CompanyId").val() },
+                    success: function (departments) {
+                        //$("#DepartmentId").empty();
+                        //$("#DepartmentId").append(departments);
+                        $("#DepartmentId").append('<option value="' + "0" + '">' + "---Select a Department" + '</option>');
+                        $.each(departments, function (i, department) {
+              
+                            $("#DepartmentId").append('<option value="' + department.DepartmentId + '">' + department.DepartmentName + '</option>');
+                        }); // here we are adding option for States
+
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve states.' + ex);
+                    }
+                });
+                return false;
+            });
+                $("#DepartmentId").change(function () {
+                    $("#DesignationId").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDesignation", "Designation")', // we are calling json method
+                    dataType: 'json',
+                    data: { id: $("#DepartmentId").val() },
+                    success: function (designations) {
+                        //$("#DepartmentId").empty();
+                        //$("#DepartmentId").append(departments);
+                        $("#DesignationId").append('<option value="' + "0" + '">' + "---Select a  Designation---" + '</option>');
+                        $.each(designations, function (i, designation) {
+
+                            $("#DesignationId").append('<option value="' + designation.Id + '">' + designation.DesignationTitle + '</option>');
+                        }); // here we are adding option for States
+
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve states.' + ex);
+                    }
+                });
+                return false;
+            });
+
+        });
+
+    </script>
+
+}
+
+

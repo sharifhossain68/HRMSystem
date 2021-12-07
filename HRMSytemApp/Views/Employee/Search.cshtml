@@ -1,0 +1,130 @@
+﻿@model IEnumerable<HRMSytemApp.Models.Employee>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search</h2>
+<p>@ViewBag.Error</p>
+<p>
+    <a class="btn btn-success" href="@Url.Action("JoiningExportReport")">Report Download</a>
+</p>
+
+
+<div class="row">
+    <div class="col-sm-2 text-lg-left"><label>From Date</label></div>
+    <div class="col-sm-3">
+
+        <input type="text" id="txtFromDate" name="FromDate" class="form-control" placeholder="Select Date" readonly />
+    </div>
+    <div class="col-sm-2"><label>To Date</label></div>
+    <div class="col-sm-3">
+
+        <input type="text" id="txtToDate" name="ToDate" class="form-control" placeholder="Select Date" readonly />
+    </div>
+    <div class="col-sm-2">
+        <input type="submit" value="Seach" class="btn btn-primary form-control" id="empButton" onclick="return Search()" />
+    </div>
+    <br /><br />
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Designation
+                </th>
+                <th>
+                    Department
+                </th>
+                <th>
+                    Company
+                </th>
+                <th>
+                   Joining Date
+                </th>
+
+               
+            </tr>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+</div>
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script type="text/javascript">
+        function ToJavaScriptDate(value) {
+            var pattern = /Date\(([^)]+)\)/;
+            var results = pattern.exec(value);
+            var dt = new Date(parseFloat(results[1]));
+            return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+        }
+        function Search() {
+            var date = {
+                fromDate: $("#txtFromDate").val(),
+                toDate : $("#txtToDate").val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Employee/SearchJoiningDate",
+                data: JSON.stringify(date),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var html = '';
+                    $.each(result, function (key, item) {
+
+                        var date = new Date(parseInt(item.JoiningDate.replace('/Date(', ')')))
+                        var dtFinal = AddLeadingZeros(date.getDate(), 2) + '/' +AddLeadingZeros(date.getMonth() + 1, 2)  +'/' + AddLeadingZeros(date.getFullYear() ,4)
+                        html += '<tr>';
+                        html += '<td>' + item.Id + '</td>';
+                        html += '<td>' + item.EmployeeName + '</td>';
+                        html += '<td>' + item.DesignationTile + '</td>';
+                        html += '<td>' + item.DepartmentName + '</td>';
+                        html += '<td>' + item.CompanyName + '</td>';
+                        html += '<td>' + ToJavaScriptDate( item.JoiningDate) + '</td>';
+                        //html += '<td><a href="#" onclick="return getbyID(' + item.Id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.Id + ')">Delete</a></td>';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                },
+            
+                
+            });
+        }
+        function AddLeadingZeros(number, size) {
+            var s = "0000" + number;
+            return s.substr(s.length);
+        }
+   
+       
+        $(document).ready(function () {
+          $("#txtFromDate").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1950:2050"
+            });
+            $("#txtToDate").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1950:2050"
+            });
+        });
+
+       
+    </script>
+}
+
+
